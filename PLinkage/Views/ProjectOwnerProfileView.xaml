@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PLinkage.Views.ProjectOwnerProfileView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:PLinkage.Models"
+    xmlns:viewmodels="clr-namespace:PLinkage.ViewModels"
+    Title="My Profile"
+    Shell.NavBarIsVisible="False">
+
+    <ScrollView Padding="50">
+        <VerticalStackLayout Spacing="16">
+            <Border
+                Padding="16"
+                Background="White"
+                StrokeShape="RoundRectangle 8"
+                StrokeThickness="0">
+                <Grid ColumnDefinitions="*,Auto">
+                    <HorizontalStackLayout Spacing="12">
+                        <BoxView
+                            HeightRequest="60"
+                            WidthRequest="60"
+                            Color="#7C4DFF" />
+                        <VerticalStackLayout>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="25"
+                                Text="{Binding UserName}"
+                                TextColor="Black" />
+                            <Label
+                                FontSize="12"
+                                Text="{Binding UserLocation, StringFormat='Location: {0}'}"
+                                TextColor="Black" />
+                            <Label
+                                FontSize="12"
+                                Text="{Binding DateJoined, StringFormat='Joined on: {0:MMMM dd, yyyy}'}"
+                                TextColor="Black" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+                    <Button
+                        Padding="10,4"
+                        BackgroundColor="#D32F2F"
+                        Command="{Binding UpdateProfileCommand}"
+                        CornerRadius="6"
+                        HorizontalOptions="End"
+                        Text="Update Profile"
+                        WidthRequest="150" />
+                </Grid>
+            </Border>
+
+            <Border
+                Padding="16"
+                Background="White"
+                Stroke="#7C4DFF"
+                StrokeShape="RoundRectangle 8"
+                StrokeThickness="1">
+                <VerticalStackLayout>
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="Information"
+                        TextColor="Black" />
+                    <Label
+                        FontSize="12"
+                        Text="{Binding UserGender, StringFormat='Gender: {0}'}"
+                        TextColor="Black" />
+                    <Label
+                        FontSize="12"
+                        Text="{Binding UserEmail, StringFormat='Email: {0}'}"
+                        TextColor="Black" />
+                    <Label
+                        FontSize="12"
+                        Text="{Binding UserPhone, StringFormat='Mobile: {0}'}"
+                        TextColor="Black" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Padding="16"
+                Background="White"
+                Stroke="#7C4DFF"
+                StrokeShape="RoundRectangle 8"
+                StrokeThickness="1">
+                <VerticalStackLayout Spacing="12">
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout>
+                            <Label
+                                Margin="0,0,0,4"
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                HorizontalTextAlignment="Center"
+                                Text="My Projects"
+                                TextColor="Black" />
+                            <Label
+                                Margin="0,0,0,4"
+                                FontSize="14"
+                                HorizontalOptions="Center"
+                                Text="Sort By"
+                                TextColor="Black" />
+                            <Border
+                                Padding="0"
+                                Background="White"
+                                HeightRequest="40"
+                                Stroke="LightGray"
+                                StrokeShape="RoundRectangle 6"
+                                StrokeThickness="0"
+                                WidthRequest="200">
+                                <Grid>
+                                    <Picker
+                                        Title="Select Status"
+                                        Margin="0,-15,0,0"
+                                        BackgroundColor="Transparent"
+                                        FontSize="14"
+                                        HeightRequest="75"
+                                        HorizontalOptions="FillAndExpand"
+                                        ItemsSource="{Binding SortOptions}"
+                                        SelectedItem="{Binding SortSelection}"
+                                        TextColor="Black"
+                                        TitleColor="DarkGray"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <Button
+                            Padding="10,4"
+                            BackgroundColor="#388E3C"
+                            Command="{Binding AddProjectCommand}"
+                            CornerRadius="6"
+                            HorizontalOptions="End"
+                            Text="Create Project"
+                            VerticalOptions="End"
+                            WidthRequest="150" />
+                    </Grid>
+
+                    <FlexLayout
+                        AlignContent="Center"
+                        AlignItems="Start"
+                        BindableLayout.ItemsSource="{Binding OwnedProjects}"
+                        Direction="Row"
+                        JustifyContent="Center"
+                        Wrap="Wrap">
+
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Margin="0,0,6,6"
+                                    Padding="10"
+                                    Background="#7C4DFF"
+                                    MinimumHeightRequest="120"
+                                    Stroke="LightGray"
+                                    StrokeShape="RoundRectangle 6"
+                                    StrokeThickness="0"
+                                    WidthRequest="250">
+
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <VerticalStackLayout>
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="14"
+                                                LineBreakMode="WordWrap"
+                                                MaxLines="2"
+                                                Text="{Binding ProjectName}"
+                                                TextColor="White" />
+                                            <Label
+                                                FontSize="14"
+                                                LineBreakMode="WordWrap"
+                                                MaxLines="2"
+                                                Text="{Binding ProjectDescription}"
+                                                TextColor="White" />
+                                            <Label
+                                                FontSize="12"
+                                                Text="{Binding ProjectStatus, StringFormat='Status: {0}'}"
+                                                TextColor="White" />
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout
+                                            Grid.Column="1"
+                                            HorizontalOptions="End"
+                                            Spacing="4">
+                                            <Button
+                                                BackgroundColor="White"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ViewProjectCommand}"
+                                                CommandParameter="{Binding .}"
+                                                Text="View"
+                                                TextColor="#7C4DFF" />
+                                            <Button
+                                                BackgroundColor="White"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.UpdateProjectCommand}"
+                                                CommandParameter="{Binding .}"
+                                                Text="Update"
+                                                TextColor="#D32F2F" />
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PLinkage.Views.SkillProviderHomeView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:PLinkage.Models"
+    xmlns:viewmodels="clr-namespace:PLinkage.ViewModels"
+    Title="Home - Skill Provider"
+    Shell.NavBarIsVisible="False">
+    <ScrollView Padding="50">
+        <VerticalStackLayout Spacing="16">
+
+            <Border
+                Padding="16"
+                BackgroundColor="#7C4DFF"
+                StrokeShape="RoundRectangle 12"
+                StrokeThickness="0">
+                <VerticalStackLayout Spacing="4">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        Text="{Binding UserName, StringFormat='Welcome back, {0}!'}"
+                        TextColor="White" />
+
+                    <Label
+                        FontSize="14"
+                        Text="{Binding SummaryText}"
+                        TextColor="White" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!--  Suggested Header and Sort Picker  -->
+            <Border
+                Padding="16"
+                BackgroundColor="#FFFFFF"
+                Stroke="#7C4DFF"
+                StrokeShape="RoundRectangle 12"
+                StrokeThickness="1">
+                <VerticalStackLayout Spacing="6">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        Text="Suggested for you"
+                        TextColor="Black" />
+
+                    <!--  Sort Options Picker  -->
+                    <Picker
+                        Title="Sort by"
+                        ItemsSource="{Binding SortOptions}"
+                        SelectedItem="{Binding SortSelection}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!--  Suggested Projects List  -->
+            <FlexLayout
+                AlignContent="Center"
+                AlignItems="Start"
+                BindableLayout.ItemsSource="{Binding SuggestedProjects}"
+                Direction="Row"
+                JustifyContent="Center"
+                Wrap="Wrap">
+
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Margin="0,0,10,10"
+                            Padding="12"
+                            BackgroundColor="#FFFFFF"
+                            MinimumHeightRequest="120"
+                            Stroke="#7C4DFF"
+                            StrokeShape="RoundRectangle 10"
+                            StrokeThickness="1"
+                            WidthRequest="340">
+                            <Grid ColumnDefinitions="80,*,Auto" ColumnSpacing="10">
+                                <BoxView
+                                    HeightRequest="60"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    WidthRequest="60"
+                                    Color="#7C4DFF" />
+
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Spacing="2"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="14"
+                                        LineBreakMode="WordWrap"
+                                        MaxLines="2"
+                                        Text="{Binding ProjectName}"
+                                        TextColor="Black" />
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding ProjectResourcesAvailable, StringFormat='{0} available slot/s'}"
+                                        TextColor="Black" />
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding ProjectLocation}"
+                                        TextColor="Black" />
+                                </VerticalStackLayout>
+
+                                <Button
+                                    Grid.Column="2"
+                                    Padding="10,4"
+                                    BackgroundColor="#7C4DFF"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:SkillProviderHomeViewModel}}, Path=ViewProjectCommand}"
+                                    CommandParameter="{Binding .}"
+                                    CornerRadius="6"
+                                    Text="View"
+                                    VerticalOptions="Center"
+                                    WidthRequest="100" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PLinkage.Views.SkillProviderOffersAndApplicationsView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:PLinkage.ViewModels"
+    Title="Offers and Applications"
+    Shell.NavBarIsVisible="False">
+
+    <ScrollView Padding="50" HorizontalScrollBarVisibility="Always">
+        <!--  Use a Grid with 4 columns  -->
+        <Grid ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--  SECTION 1: Sent Applications (Pending)  -->
+            <VerticalStackLayout Grid.Column="0" Spacing="10">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    Text="Sent Applications (Pending)" />
+                <CollectionView ItemsSource="{Binding SentApplicationsPending}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="6" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Margin="0,0,0,10"
+                                Padding="14"
+                                Background="White"
+                                Stroke="#7C4DFF"
+                                StrokeShape="RoundRectangle 12"
+                                StrokeThickness="1">
+                                <Grid ColumnDefinitions="3*,3*,2*" VerticalOptions="Center">
+                                    <VerticalStackLayout>
+                                        <Label
+                                            FontSize="10"
+                                            Text="🟠 Application"
+                                            TextColor="#FF9800" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="2"
+                                            Text="{Binding ProjectName}"
+                                            TextColor="#7C4DFF"
+                                            TextDecorations="Underline">
+
+
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:SkillProviderApplicationOfferViewModel}}, Path=ViewProjectCommand}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="12"
+                                            Text="Rate Requested:"
+                                            TextColor="Black" />
+                                        <Label
+                                            FontSize="12"
+                                            Text="{Binding FormattedRate}"
+                                            TextColor="Black" />
+
+                                        <Label
+                                            Margin="0,8,0,0"
+                                            FontAttributes="Bold"
+                                            FontSize="12"
+                                            Text="Timeframe Requested:"
+                                            TextColor="Black" />
+                                        <Label
+                                            FontSize="12"
+                                            Text="{Binding FormattedTimeFrame}"
+                                            TextColor="Black" />
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="2"
+                                            Text="{Binding ReceiverName, StringFormat='Sent to: {0}'}"
+                                            TextColor="#7C4DFF"
+                                            TextDecorations="Underline">
+
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:SkillProviderApplicationOfferViewModel}}, Path=ViewReceiverCommand}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </VerticalStackLayout>
+
+                                    <Label
+                                        Grid.Column="2"
+                                        FontAttributes="Bold"
+                                        Text="Pending"
+                                        TextColor="Gray"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!--  SECTION 2: Received Offers (Pending)  -->
+            <VerticalStackLayout Grid.Column="1" Spacing="10">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    Text="Received Offers (Pending)" />
+                <CollectionView ItemsSource="{Binding ReceivedOffersPending}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="6" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Margin="0,0,0,8"
+                                Padding="14"
+                                Background="White"
+                                Stroke="#7C4DFF"
+                                StrokeShape="RoundRectangle 12"
+                                StrokeThickness="1">
+                                <Grid ColumnDefinitions="3*,3*,2*" VerticalOptions="Center">
+                                    <VerticalStackLayout>
+                                        <Label
+                                            FontSize="10"
+                                            Text="🔵 Offer"
+                                            TextColor="#2196F3" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="2"
+                                            Text="{Binding ProjectName}"
+                                            TextColor="#7C4DFF"
+                                            TextDecorations="Underline">
+
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:SkillProviderApplicationOfferViewModel}}, Path=ViewProjectCommand}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="12"
+                                            Text="Rate Offered:"
+                                            TextColor="Black" />
+                                        <Label
+                                            FontSize="12"
+                                            Text="{Binding FormattedRate}"
+                                            TextColor="Black" />
+
+                                        <Label
+                                            Margin="0,8,0,0"
+                                            FontAttributes="Bold"
+                                            FontSize="12"
+                                            Text="Timeframe Offered:"
+                                            TextColor="Black" />
+                                        <Label
+                                            FontSize="12"
+                                            Text="{Binding FormattedTimeFrame}"
+                                            TextColor="Black" />
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="2"
+                                            Text="{Binding SenderName, StringFormat='Received from: {0}'}"
+                                            TextColor="#7C4DFF"
+                                            TextDecorations="Underline">
+
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:SkillProviderApplicationOfferViewModel}}, Path=ViewSenderCommand}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout
+                                        Grid.Column="2"
+                                        HorizontalOptions="End"
+                                        Spacing="8"
+                                        VerticalOptions="Center">
+                                        <Button
+                                            BackgroundColor="#C8E6C9"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:SkillProviderApplicationOfferViewModel}}, Path=ApproveOfferCommand}"
+                                            CommandParameter="{Binding .}"
+                                            CornerRadius="10"
+                                            Text="✓"
+                                            TextColor="Black" />
+                                        <Button
+                                            BackgroundColor="#FFCDD2"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:SkillProviderApplicationOfferViewModel}}, Path=RejectOfferCommand}"
+                                            CommandParameter="{Binding .}"
+                                            CornerRadius="10"
+                                            Text="✕"
+                                            TextColor="Black" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!--  SECTION 3: Sent Applications (History)  -->
+            <VerticalStackLayout Grid.Column="2" Spacing="10">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    Text="Sent Applications (History)" />
+                <CollectionView ItemsSource="{Binding SentApplicationsHistory}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="6" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Margin="0,0,0,10"
+                                Padding="14"
+                                Background="LightGray"
+                                Stroke="#D9D9D9"
+                                StrokeShape="RoundRectangle 12"
+                                StrokeThickness="1">
+                                <Grid ColumnDefinitions="3*,3*,2*" VerticalOptions="Center">
+                                    <VerticalStackLayout>
+                                        <Label
+                                            FontSize="10"
+                                            Text="🟠 Application"
+                                            TextColor="#FF9800" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="2"
+                                            Text="{Binding ProjectName}"
+                                            TextColor="#7C4DFF"
+                                            TextDecorations="Underline">
+
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:SkillProviderApplicationOfferViewModel}}, Path=ViewProjectCommand}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="12"
+                                            Text="Rate Requested:"
+                                            TextColor="Black" />
+                                        <Label
+                                            FontSize="12"
+                                            Text="{Binding FormattedRate}"
+                                            TextColor="Black" />
+
+                                        <Label
+                                            Margin="0,8,0,0"
+                                            FontAttributes="Bold"
+                                            FontSize="12"
+                                            Text="Timeframe Requested:"
+                                            TextColor="Black" />
+                                        <Label
+                                            FontSize="12"
+                                            Text="{Binding FormattedTimeFrame}"
+                                            TextColor="Black" />
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="2"
+                                            Text="{Binding ReceiverName, StringFormat='Sent to: {0}'}"
+                                            TextColor="#7C4DFF"
+                                            TextDecorations="Underline">
+
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:SkillProviderApplicationOfferViewModel}}, Path=ViewReceiverCommand}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </VerticalStackLayout>
+
+                                    <Label
+                                        Grid.Column="2"
+                                        FontAttributes="Bold"
+                                        Text="{Binding OfferApplicationStatus}"
+                                        TextColor="Gray"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!--  SECTION 4: Received Offers (History)  -->
+            <VerticalStackLayout Grid.Column="3" Spacing="10">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    Text="Received Offers (History)" />
+                <CollectionView ItemsSource="{Binding ReceivedOffersHistory}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="6" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Padding="14"
+                                Background="LightGray"
+                                Stroke="#D9D9D9"
+                                StrokeShape="RoundRectangle 12"
+                                StrokeThickness="1">
+                                <Grid ColumnDefinitions="3*,3*,2*">
+                                    <VerticalStackLayout>
+                                        <Label
+                                            FontSize="10"
+                                            Text="🔵 Offer"
+                                            TextColor="#2196F3" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="2"
+                                            Text="{Binding ProjectName}"
+                                            TextColor="#7C4DFF"
+                                            TextDecorations="Underline">
+
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:SkillProviderApplicationOfferViewModel}}, Path=ViewProjectCommand}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="12"
+                                            Text="Rate Offered:"
+                                            TextColor="Black" />
+                                        <Label
+                                            FontSize="12"
+                                            Text="{Binding FormattedRate}"
+                                            TextColor="Black" />
+
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="12"
+                                            Text="Timeframe Offered:"
+                                            TextColor="Black" />
+                                        <Label
+                                            FontSize="12"
+                                            Text="{Binding FormattedTimeFrame}"
+                                            TextColor="Black" />
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="2"
+                                            Text="{Binding SenderName, StringFormat='Received from: {0}'}"
+                                            TextColor="#7C4DFF"
+                                            TextDecorations="Underline">
+
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:SkillProviderApplicationOfferViewModel}}, Path=ViewSenderCommand}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </VerticalStackLayout>
+
+                                    <Label
+                                        Grid.Column="2"
+                                        FontAttributes="Bold"
+                                        Text="{Binding OfferApplicationStatus}"
+                                        TextColor="Gray"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

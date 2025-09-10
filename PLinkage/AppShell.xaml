@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="PLinkage.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:PLinkage.Views;assembly=PLinkage"
+    Title="PLinkage"
+    Shell.FlyoutBehavior="Flyout">
+
+    <Shell.FlyoutHeader>
+        <StackLayout Padding="10" Spacing="10">
+            <Image
+                HeightRequest="100"
+                HorizontalOptions="Center"
+                Source="plinkage.png"
+                WidthRequest="100" />
+            <Label
+                FontAttributes="Bold"
+                FontSize="16"
+                HorizontalOptions="Center"
+                Text="{Binding WelcomeMessage}" />
+            <Label
+                FontSize="14"
+                HorizontalOptions="Center"
+                Text="{Binding UserRoleMessage}" />
+
+            <Button
+                BackgroundColor="Red"
+                Command="{Binding LogoutCommand}"
+                CornerRadius="10"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsLoggedIn}"
+                Text="Logout"
+                TextColor="White"
+                WidthRequest="100" />
+        </StackLayout>
+    </Shell.FlyoutHeader>
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:LoginView}"
+        FlyoutItemIsVisible="False"
+        Route="LoginView" />
+
+    <!--  Admin Menu  -->
+    <FlyoutItem Title="Home" IsVisible="{Binding IsAdmin}">
+        <ShellContent ContentTemplate="{DataTemplate views:AdminHomeView}" Route="AdminHomeView" />
+    </FlyoutItem>
+    <FlyoutItem Title="Browse Projects" IsVisible="{Binding IsAdmin}">
+        <ShellContent ContentTemplate="{DataTemplate views:AdminBrowseProjectsView}" Route="AdminBrowseProjectsView" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Browse Project Owners" IsVisible="{Binding IsAdmin}">
+        <ShellContent ContentTemplate="{DataTemplate views:AdminBrowseProjectOwnerView}" Route="AdminBrowseProjectOwnerView" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Browse Skill Providers" IsVisible="{Binding IsAdmin}">
+        <ShellContent ContentTemplate="{DataTemplate views:AdminBrowseSkillProvidersView}" Route="AdminBrowseSkillProvidersView" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="My Messages" IsVisible="{Binding IsAdmin}">
+        <ShellContent ContentTemplate="{DataTemplate views:AdminMessagesView}" Route="AdminViewProjectOwnerProfileView" />
+    </FlyoutItem>
+
+    <!--  Project Owner Menu  -->
+    <FlyoutItem Title="Home" IsVisible="{Binding IsProjectOwner}">
+        <ShellContent ContentTemplate="{DataTemplate views:ProjectOwnerHomeView}" Route="ProjectOwnerHomeView" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="My Profile" IsVisible="{Binding IsProjectOwner}">
+        <ShellContent ContentTemplate="{DataTemplate views:ProjectOwnerProfileView}" Route="ProjectOwnerProfileView" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Browse Skill Providers" IsVisible="{Binding IsProjectOwner}">
+        <ShellContent ContentTemplate="{DataTemplate views:ProjectOwnerBrowseSkillProviderView}" Route="ProjectOwnerBrowseSkillProviderView" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Applications and Offers" IsVisible="{Binding IsProjectOwner}">
+        <ShellContent ContentTemplate="{DataTemplate views:ProjectOwnerOffersAndApplicationsView}" Route="ProjectOwnerOffersAndApplicationsView" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="My Messages" IsVisible="{Binding IsProjectOwner}">
+        <ShellContent ContentTemplate="{DataTemplate views:ProjectOwnerMessagesView}" Route="ProjectOwnerMessagesView" />
+    </FlyoutItem>
+
+    <!--  Skill Provider Menu  -->
+    <FlyoutItem Title="Home" IsVisible="{Binding IsSkillProvider}">
+        <ShellContent ContentTemplate="{DataTemplate views:SkillProviderHomeView}" Route="SkillProviderHomeView" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="My Profile" IsVisible="{Binding IsSkillProvider}">
+        <ShellContent ContentTemplate="{DataTemplate views:SkillProviderProfileView}" Route="SkillProviderProfileView" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Browse Projects" IsVisible="{Binding IsSkillProvider}">
+        <ShellContent ContentTemplate="{DataTemplate views:SkillProviderBrowseProjectsView}" Route="SkillProviderBrowseProjectsView" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Applications and Offers" IsVisible="{Binding IsSkillProvider}">
+        <ShellContent ContentTemplate="{DataTemplate views:SkillProviderOffersAndApplicationsView}" Route="SkillProviderOffersAndApplicationsView" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="My Messages" IsVisible="{Binding IsSkillProvider}">
+        <ShellContent ContentTemplate="{DataTemplate views:SkillProviderMessagesView}" Route="SkillProvidersMessagesView" />
+    </FlyoutItem>
+
+</Shell>

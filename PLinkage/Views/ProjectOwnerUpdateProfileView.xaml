@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PLinkage.Views.ProjectOwnerUpdateProfileView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:PLinkage.ViewModels"
+    Title="Update Profile"
+    x:DataType="viewmodels:UpdateProfileViewModel"
+    Shell.NavBarIsVisible="False">
+
+    <VerticalStackLayout Padding="50" Spacing="20">
+
+        <!--  Header  -->
+        <Border
+            Padding="12"
+            Background="#7C4DFF"
+            StrokeShape="RoundRectangle 5"
+            StrokeThickness="0">
+            <Label
+                FontAttributes="Bold"
+                FontSize="20"
+                Text="Update Profile"
+                TextColor="White" />
+        </Border>
+
+        <!--  Form Grid  -->
+        <Grid
+            ColumnDefinitions="*,*"
+            ColumnSpacing="20"
+            RowDefinitions="Auto,Auto,Auto,Auto"
+            RowSpacing="15">
+
+            <!--  First Name  -->
+            <Border
+                Grid.Row="0"
+                Grid.Column="0"
+                Padding="5"
+                Background="Transparent"
+                Stroke="LightGray"
+                StrokeShape="RoundRectangle 6"
+                StrokeThickness="1">
+                <Entry
+                    BackgroundColor="White"
+                    Placeholder="First Name"
+                    Text="{Binding FirstName}"
+                    TextColor="Black" />
+            </Border>
+
+            <!--  Last Name  -->
+            <Border
+                Grid.Row="1"
+                Grid.Column="0"
+                Padding="5"
+                Background="Transparent"
+                Stroke="LightGray"
+                StrokeShape="RoundRectangle 6"
+                StrokeThickness="1">
+                <Entry
+                    BackgroundColor="White"
+                    Placeholder="Last Name"
+                    Text="{Binding LastName}"
+                    TextColor="Black" />
+            </Border>
+
+            <!--  Gender RadioButtons  -->
+            <Border
+                Grid.Row="0"
+                Grid.Column="1"
+                Padding="5"
+                Background="Transparent"
+                Stroke="LightGray"
+                StrokeShape="RoundRectangle 6"
+                StrokeThickness="1">
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="Gender:" VerticalOptions="Center" />
+                    <RadioButton
+                        Content="Male"
+                        GroupName="Gender"
+                        IsChecked="{Binding IsMale}" />
+                    <RadioButton
+                        Content="Female"
+                        GroupName="Gender"
+                        IsChecked="{Binding IsFemale}" />
+                </HorizontalStackLayout>
+            </Border>
+
+            <!--  Location Picker  -->
+            <Border
+                Grid.Row="1"
+                Grid.Column="1"
+                Padding="5"
+                Background="Transparent"
+                Stroke="LightGray"
+                StrokeShape="RoundRectangle 6"
+                StrokeThickness="1">
+                <Picker
+                    Title="Select Location"
+                    BackgroundColor="White"
+                    ItemDisplayBinding="{Binding .}"
+                    ItemsSource="{Binding CebuLocations}"
+                    SelectedItem="{Binding SelectedLocation}"
+                    TextColor="Black" />
+            </Border>
+
+            <!--  Birthdate  -->
+            <Border
+                Grid.Row="2"
+                Grid.Column="0"
+                Padding="5"
+                Background="Transparent"
+                Stroke="LightGray"
+                StrokeShape="RoundRectangle 6"
+                StrokeThickness="1">
+                <DatePicker
+                    BackgroundColor="White"
+                    Date="{Binding Birthdate}"
+                    TextColor="Black" />
+            </Border>
+
+            <!--  Mobile Number  -->
+            <Border
+                Grid.Row="2"
+                Grid.Column="1"
+                Padding="5"
+                Background="Transparent"
+                Stroke="LightGray"
+                StrokeShape="RoundRectangle 6"
+                StrokeThickness="1">
+                <Entry
+                    BackgroundColor="White"
+                    Keyboard="Telephone"
+                    Placeholder="Mobile Number"
+                    Text="{Binding MobileNumber}"
+                    TextColor="Black" />
+            </Border>
+
+            <!--  Error Message  -->
+            <Label
+                Grid.Row="3"
+                Grid.ColumnSpan="2"
+                FontAttributes="Italic"
+                Text="{Binding ErrorMessage}"
+                TextColor="Red" />
+        </Grid>
+
+        <!--  Action Buttons  -->
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+            <Button
+                Padding="10,5"
+                BackgroundColor="White"
+                BorderColor="#7C4DFF"
+                Command="{Binding ClearCommand}"
+                CornerRadius="6"
+                Text="Reset"
+                TextColor="Black" />
+
+            <Button
+                Padding="10,5"
+                BackgroundColor="#7C4DFF"
+                Command="{Binding UpdateCommand}"
+                CornerRadius="6"
+                Text="Apply Changes"
+                TextColor="White" />
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

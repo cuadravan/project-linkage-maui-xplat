@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PLinkage.Views.AdminHomeView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:PLinkage.Models"
+    xmlns:viewmodels="clr-namespace:PLinkage.ViewModels"
+    Title="Home - Admin"
+    BackgroundColor="White"
+    Shell.NavBarIsVisible="False">
+
+    <ScrollView Padding="50">
+        <VerticalStackLayout Spacing="16">
+
+            <!--  Dashboard Stats  -->
+            <Border
+                Padding="16"
+                BackgroundColor="#7C4DFF"
+                Stroke="#CCCCCC"
+                StrokeShape="RoundRectangle 12"
+                StrokeThickness="1">
+                <VerticalStackLayout Spacing="6">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        Text="Welcome, Admin!"
+                        TextColor="White" />
+
+                    <Label
+                        FontSize="14"
+                        Text="{Binding ActiveProjects, StringFormat='Active Projects: {0}'}"
+                        TextColor="White" />
+                    <Label
+                        FontSize="14"
+                        Text="{Binding CompletedProjects, StringFormat='Completed Projects: {0}'}"
+                        TextColor="White" />
+                    <Label
+                        FontSize="14"
+                        Text="{Binding EmploymentRatio, StringFormat='Employment Ratio (excluding deactivated): {0}'}"
+                        TextColor="White" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!--  Project Filter  -->
+            <Border
+                Padding="16"
+                BackgroundColor="#FFFFFF"
+                Stroke="#7C4DFF"
+                StrokeShape="RoundRectangle 12"
+                StrokeThickness="1">
+                <VerticalStackLayout Spacing="6">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        Text="All Projects"
+                        TextColor="Black" />
+                    <Label
+                        FontSize="14"
+                        Text="Filter Projects by Project Status"
+                        TextColor="Black" />
+
+                    <Picker
+                        Title=""
+                        ItemsSource="{Binding ProjectStatusFilterOptions}"
+                        SelectedItem="{Binding SelectedProjectFilter}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!--  Project List  -->
+            <FlexLayout
+                AlignContent="Center"
+                AlignItems="Start"
+                BindableLayout.ItemsSource="{Binding FilteredProjects}"
+                Direction="Row"
+                JustifyContent="Center"
+                Wrap="Wrap">
+
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Margin="0,0,10,10"
+                            Padding="12"
+                            BackgroundColor="White"
+                            MinimumHeightRequest="120"
+                            Stroke="#7C4DFF"
+                            StrokeShape="RoundRectangle 10"
+                            StrokeThickness="1"
+                            WidthRequest="340">
+                            <Grid ColumnDefinitions="80,*,Auto" ColumnSpacing="10">
+
+                                <!--  Avatar / Icon  -->
+                                <BoxView
+                                    HeightRequest="60"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    WidthRequest="60"
+                                    Color="#7C4DFF" />
+
+                                <!--  Project Info  -->
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Spacing="2"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="14"
+                                        LineBreakMode="WordWrap"
+                                        MaxLines="2"
+                                        Text="{Binding ProjectName}"
+                                        TextColor="Black" />
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding ProjectStatus, StringFormat='Status: {0}'}"
+                                        TextColor="Black" />
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding ProjectLocation, StringFormat='Location: {0}'}"
+                                        TextColor="Gray" />
+                                </VerticalStackLayout>
+
+                                <!--  View Button  -->
+                                <Button
+                                    Grid.Column="2"
+                                    Padding="10,4"
+                                    BackgroundColor="#7C4DFF"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AdminHomeViewModel}}, Path=ViewProjectCommand}"
+                                    CommandParameter="{Binding .}"
+                                    CornerRadius="6"
+                                    Text="View"
+                                    VerticalOptions="Center"
+                                    WidthRequest="100" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+
+
+            <!--  Skill Provider Filters  -->
+            <Border
+                Padding="16"
+                BackgroundColor="White"
+                Stroke="#7C4DFF"
+                StrokeShape="RoundRectangle 12"
+                StrokeThickness="1">
+                <VerticalStackLayout Spacing="6">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        Text="All Skill Providers"
+                        TextColor="Black" />
+                    <Label
+                        FontSize="14"
+                        Text="Filter Skill Providers by"
+                        TextColor="Black" />
+
+                    <Picker
+                        Title="Employment Status"
+                        ItemsSource="{Binding SkillProviderFilterOptions}"
+                        SelectedItem="{Binding SelectedSkillEmploymentFilter}" />
+
+                    <Picker
+                        Title="Account Status"
+                        ItemsSource="{Binding SkillProviderStatusFilterOptions}"
+                        SelectedItem="{Binding SelectedSkillStatusFilter}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!--  Skill Provider List  -->
+            <FlexLayout
+                AlignContent="Center"
+                AlignItems="Start"
+                BindableLayout.ItemsSource="{Binding FilteredSkillProviders}"
+                Direction="Row"
+                JustifyContent="Center"
+                Wrap="Wrap">
+
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Margin="0,0,10,10"
+                            Padding="12"
+                            BackgroundColor="#FFFFFF"
+                            MinimumHeightRequest="120"
+                            Stroke="#7C4DFF"
+                            StrokeShape="RoundRectangle 10"
+                            StrokeThickness="1"
+                            WidthRequest="340">
+                            <Grid ColumnDefinitions="80,*,Auto" ColumnSpacing="10">
+                                <BoxView
+                                    HeightRequest="60"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    WidthRequest="60"
+                                    Color="#7C4DFF" />
+
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Spacing="2"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="14"
+                                        LineBreakMode="WordWrap"
+                                        MaxLines="2"
+                                        Text="{Binding UserFirstName}"
+                                        TextColor="Black" />
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding UserStatus, StringFormat='Status: {0}'}"
+                                        TextColor="Black" />
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding UserLocation}"
+                                        TextColor="Black" />
+                                </VerticalStackLayout>
+
+                                <Button
+                                    Grid.Column="2"
+                                    Padding="10,4"
+                                    BackgroundColor="#7C4DFF"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AdminHomeViewModel}}, Path=ViewSkillProviderCommand}"
+                                    CommandParameter="{Binding .}"
+                                    CornerRadius="6"
+                                    Text="View"
+                                    TextColor="White"
+                                    VerticalOptions="Center"
+                                    WidthRequest="100" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

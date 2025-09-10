@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PLinkage.Views.ProjectOwnerMessagesView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Messages"
+    Shell.NavBarIsVisible="False">
+
+    <Grid
+        Padding="50"
+        ColumnDefinitions="*"
+        RowDefinitions="Auto,*">
+        <!--  Header  -->
+        <Frame
+            Padding="16"
+            BackgroundColor="#7C4DFF"
+            CornerRadius="0"
+            HasShadow="False">
+            <Label
+                FontAttributes="Bold"
+                FontSize="20"
+                Text="Messages"
+                TextColor="White" />
+        </Frame>
+
+        <!--  Main Panel  -->
+        <Grid
+            Grid.Row="1"
+            Padding="10"
+            ColumnDefinitions="2*,3*">
+
+            <!--  Chat List  -->
+            <CollectionView
+                x:Name="ChatListView"
+                Grid.Column="0"
+                ItemsSource="{Binding ChatSummaries}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="4" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame
+                            Margin="0,4"
+                            Padding="10"
+                            BackgroundColor="White"
+                            CornerRadius="6">
+                            <VerticalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <BoxView
+                                        CornerRadius="4"
+                                        HeightRequest="40"
+                                        WidthRequest="40"
+                                        Color="#7C4DFF" />
+                                    <VerticalStackLayout>
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Text="{Binding ReceiverFullName}"
+                                            TextColor="Black" />
+                                        <Label
+                                            FontSize="12"
+                                            LineBreakMode="TailTruncation"
+                                            Text="{Binding MostRecentMessage}"
+                                            TextColor="Gray" />
+                                    </VerticalStackLayout>
+                                </HorizontalStackLayout>
+                                <Button
+                                    BackgroundColor="#7C4DFF"
+                                    Command="{Binding BindingContext.ChatSelectedCommand, Source={x:Reference Name=ChatListView}}"
+                                    CommandParameter="{Binding .}"
+                                    FontSize="12"
+                                    HorizontalOptions="End"
+                                    Text="View" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+            <!--  Chat Panel  -->
+            <Grid
+                Grid.Column="1"
+                Padding="10"
+                RowDefinitions="Auto,*,Auto">
+                <!--  Header: Selected Chat  -->
+                <Frame Padding="10" BackgroundColor="#7C4DFF">
+                    <Label
+                        FontAttributes="Bold"
+                        Text="{Binding SelectedChat.ReceiverFullName}"
+                        TextColor="White" />
+                </Frame>
+
+                <!--  Message History  -->
+                <ScrollView Grid.Row="1">
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding SelectedChatMessages}" Spacing="10">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Frame
+                                    Margin="4"
+                                    Padding="10"
+                                    BackgroundColor="{Binding IsFromCurrentUser, Converter={StaticResource BoolToColorConverter}}"
+                                    CornerRadius="6"
+                                    HorizontalOptions="{Binding IsFromCurrentUser, Converter={StaticResource BoolToAlignmentConverter}}">
+                                    <StackLayout>
+                                        <Label Text="{Binding Content}" TextColor="{Binding IsFromCurrentUser, Converter={StaticResource BoolToColorTextConverter}}" />
+                                        <Label
+                                            FontSize="10"
+                                            Text="{Binding Date, StringFormat='{}{0:MMM dd, yyyy h:mm tt}'}"
+                                            TextColor="{Binding IsFromCurrentUser, Converter={StaticResource BoolToColorTextConverter}}" />
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+
+                </ScrollView>
+
+                <!--  Input  -->
+                <Grid
+                    Grid.Row="2"
+                    Margin="0,10,0,0"
+                    ColumnDefinitions="*,Auto">
+                    <Entry
+                        FontSize="14"
+                        Placeholder="Type a message..."
+                        Text="{Binding MessageContent}"
+                        TextColor="Black" />
+                    <Button
+                        Grid.Column="1"
+                        BackgroundColor="#7C4DFF"
+                        Command="{Binding SendMessageCommand}"
+                        Text="Send" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

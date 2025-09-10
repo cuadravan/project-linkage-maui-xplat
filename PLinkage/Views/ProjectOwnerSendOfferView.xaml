@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PLinkage.Views.ProjectOwnerSendOfferView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:PLinkage.Models"
+    xmlns:viewmodels="clr-namespace:PLinkage.ViewModels"
+    Title="Send Offer"
+    Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <Border
+            Padding="30"
+            Background="#F1F0FC"
+            Stroke="LightGray"
+            StrokeShape="RoundRectangle 10"
+            StrokeThickness="0"
+            VerticalOptions="Center"
+            WidthRequest="400">
+            <VerticalStackLayout Spacing="20">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalTextAlignment="Center"
+                    Text="Please complete form to send offer:"
+                    TextColor="Black" />
+                <Label
+                    FontAttributes="Bold"
+                    Text="Select Project:"
+                    TextColor="Black" />
+                <Picker
+                    BackgroundColor="White"
+                    ItemDisplayBinding="{Binding ProjectName}"
+                    ItemsSource="{Binding OwnedProjects}"
+                    SelectedItem="{Binding SelectedProject}"
+                    TextColor="Black"
+                    TitleColor="#555555" />
+
+                <Label
+                    FontAttributes="Bold"
+                    Text="Skill Provider:"
+                    TextColor="Black" />
+                <Label
+                    Padding="10,10"
+                    BackgroundColor="White"
+                    LineBreakMode="WordWrap"
+                    MaxLines="1"
+                    Text="{Binding SkillProviderFullName}"
+                    TextColor="Black" />
+
+                <Label
+                    FontAttributes="Bold"
+                    Text="Rate per hour (₱):"
+                    TextColor="Black" />
+                <Entry
+                    BackgroundColor="White"
+                    Keyboard="Numeric"
+                    Placeholder="e.g., 500"
+                    Text="{Binding RateOffered}"
+                    TextColor="Black" />
+
+                <Label
+                    FontAttributes="Bold"
+                    Text="Estimated Timeframe (in hours):"
+                    TextColor="Black" />
+                <Entry
+                    BackgroundColor="White"
+                    Placeholder="e.g., 2"
+                    Text="{Binding TimeFrameOffered}"
+                    TextColor="Black" />
+
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <Button
+                        BackgroundColor="#7C4DFF"
+                        Command="{Binding SendOfferCommand}"
+                        Text="Send Offer"
+                        TextColor="White"
+                        WidthRequest="120" />
+
+                    <Button
+                        BackgroundColor="White"
+                        Command="{Binding GoBackCommand}"
+                        Text="Cancel"
+                        TextColor="#7C4DFF"
+                        WidthRequest="120" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+    </ScrollView>
+</ContentPage>

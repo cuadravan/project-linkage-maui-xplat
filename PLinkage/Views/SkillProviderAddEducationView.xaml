@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PLinkage.Views.SkillProviderAddEducationView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:viewmodels="clr-namespace:PLinkage.ViewModels"
+    Title="Add Education"
+    x:DataType="viewmodels:AddEducationViewModel"
+    Shell.NavBarIsVisible="False">
+
+    <VerticalStackLayout
+        Padding="40"
+        Spacing="30"
+        VerticalOptions="Center"
+        WidthRequest="400">
+        <Frame
+            Padding="20"
+            BackgroundColor="#F1F0FC"
+            CornerRadius="10">
+            <VerticalStackLayout Spacing="10">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalTextAlignment="Center"
+                    Text="Please complete form to add education:"
+                    TextColor="Black" />
+                <Label
+                    FontAttributes="Bold"
+                    Text="Course Name"
+                    TextColor="Black" />
+                <Entry
+                    BackgroundColor="White"
+                    Placeholder="What is your course?"
+                    Text="{Binding CourseName, Mode=TwoWay}"
+                    TextColor="Black" />
+
+                <Label
+                    FontAttributes="Bold"
+                    Text="School Attended"
+                    TextColor="Black" />
+                <Entry
+                    BackgroundColor="White"
+                    Placeholder="Where did you get this course?"
+                    Text="{Binding SchoolAttended, Mode=TwoWay}"
+                    TextColor="Black" />
+
+                <Label
+                    FontAttributes="Bold"
+                    Text="Time Graduated"
+                    TextColor="Black" />
+                <DatePicker
+                    BackgroundColor="White"
+                    Date="{Binding TimeGraduated, Mode=TwoWay}"
+                    Format="MMMM yyyy"
+                    HorizontalOptions="Center"
+                    MaximumDate="{x:Static sys:DateTime.Today}"
+                    TextColor="Black" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <Label
+            FontSize="12"
+            IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotNullOrEmptyConverter}}"
+            Text="{Binding ErrorMessage}"
+            TextColor="Red" />
+
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="30">
+            <Button
+                Padding="14,6"
+                BackgroundColor="#7C4DFF"
+                Command="{Binding SaveCommand}"
+                CornerRadius="8"
+                Text="Add Education"
+                TextColor="White" />
+
+            <Button
+                Padding="14,6"
+                BackgroundColor="White"
+                BorderColor="#7C4DFF"
+                BorderWidth="1"
+                Command="{Binding CancelCommand}"
+                CornerRadius="8"
+                Text="Cancel"
+                TextColor="#7C4DFF" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

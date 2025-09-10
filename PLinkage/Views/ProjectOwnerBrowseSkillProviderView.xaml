@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PLinkage.Views.ProjectOwnerBrowseSkillProviderView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PLinkage.Converters"
+    xmlns:models="clr-namespace:PLinkage.Models"
+    xmlns:viewmodels="clr-namespace:PLinkage.ViewModels"
+    Title="Browse Skill Providers"
+    Shell.NavBarIsVisible="False">
+
+    <ScrollView Padding="50">
+        <VerticalStackLayout Spacing="15">
+
+            <Border
+                Padding="10"
+                Background="#7C4DFF"
+                StrokeShape="RoundRectangle 5"
+                StrokeThickness="0">
+                <VerticalStackLayout>
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="Browse Skill Providers"
+                        TextColor="White" />
+                    <Picker
+                        Title="Sort By"
+                        ItemsSource="{Binding SortOptions}"
+                        SelectedItem="{Binding SortSelection}"
+                        TextColor="White"
+                        TitleColor="White" />
+
+                    <Picker
+                        Title="Select Location"
+                        IsVisible="{Binding SortSelection, Converter={StaticResource SortToVisibilityConverter}}"
+                        ItemsSource="{Binding CebuLocations}"
+                        SelectedItem="{Binding SelectedLocation}"
+                        TextColor="White"
+                        TitleColor="White" />
+                </VerticalStackLayout>
+            </Border>
+
+            <FlexLayout
+                Padding="10"
+                AlignContent="Center"
+                AlignItems="Start"
+                BindableLayout.ItemsSource="{Binding SuggestedSkillProviders}"
+                Direction="Row"
+                JustifyContent="Center"
+                Wrap="Wrap">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Margin="0,0,10,10"
+                            Padding="12"
+                            BackgroundColor="#FFFFFF"
+                            MinimumHeightRequest="120"
+                            Stroke="#7C4DFF"
+                            StrokeShape="RoundRectangle 10"
+                            StrokeThickness="1"
+                            WidthRequest="340">
+                            <Grid ColumnDefinitions="80,*,Auto" ColumnSpacing="10">
+                                <BoxView
+                                    HeightRequest="60"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    WidthRequest="60"
+                                    Color="#7C4DFF" />
+
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Spacing="2"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="14"
+                                        LineBreakMode="WordWrap"
+                                        MaxLines="2"
+                                        Text="{Binding UserFirstName}"
+                                        TextColor="Black" />
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding UserRating, StringFormat='{0:F2} star/s'}"
+                                        TextColor="Black" />
+
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding UserLocation}"
+                                        TextColor="Black" />
+                                </VerticalStackLayout>
+
+                                <Button
+                                    Grid.Column="2"
+                                    Padding="10,4"
+                                    BackgroundColor="#7C4DFF"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:BrowseSkillProviderViewModel}}, Path=ViewSkillProviderCommand}"
+                                    CommandParameter="{Binding .}"
+                                    CornerRadius="6"
+                                    Text="View"
+                                    TextColor="White"
+                                    VerticalOptions="Center"
+                                    WidthRequest="100" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

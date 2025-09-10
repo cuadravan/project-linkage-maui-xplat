@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PLinkage.Views.SkillProviderSendApplicationView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:PLinkage.ViewModels"
+    Title="Apply to Project"
+    Shell.NavBarIsVisible="False">
+
+    <ScrollView Padding="40,20">
+        <Border
+            Padding="30"
+            Background="#F1F0FC"
+            HorizontalOptions="Center"
+            Stroke="LightGray"
+            StrokeShape="RoundRectangle 10"
+            StrokeThickness="1"
+            VerticalOptions="Center"
+            WidthRequest="400">
+
+            <VerticalStackLayout Spacing="20">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalTextAlignment="Center"
+                    Text="Please complete form to apply:"
+                    TextColor="Black" />
+                <Label
+                    FontAttributes="Bold"
+                    Text="Project Name:"
+                    TextColor="Black" />
+                <Label
+                    Padding="8,4"
+                    BackgroundColor="White"
+                    LineBreakMode="WordWrap"
+                    MaxLines="1"
+                    Text="{Binding ProjectName}"
+                    TextColor="Black" />
+
+                <Label
+                    FontAttributes="Bold"
+                    Text="Applying Skill Provider:"
+                    TextColor="Black" />
+                <Label
+                    Padding="8,4"
+                    BackgroundColor="White"
+                    LineBreakMode="WordWrap"
+                    MaxLines="1"
+                    Text="{Binding SkillProviderFullName}"
+                    TextColor="Black" />
+
+                <Label
+                    FontAttributes="Bold"
+                    Text="Requested Rate (₱/hour):"
+                    TextColor="Black" />
+                <Entry
+                    BackgroundColor="White"
+                    Keyboard="Numeric"
+                    Placeholder="e.g., 500"
+                    Text="{Binding RateAsked}"
+                    TextColor="Black" />
+
+                <Label
+                    FontAttributes="Bold"
+                    Text="Requested Timeframe (Hours):"
+                    TextColor="Black" />
+                <Entry
+                    BackgroundColor="White"
+                    Keyboard="Numeric"
+                    Placeholder="e.g., 10"
+                    Text="{Binding TimeFrameAsked}"
+                    TextColor="Black" />
+
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <Button
+                        Padding="12,6"
+                        BackgroundColor="#7C4DFF"
+                        Command="{Binding SendApplicationCommand}"
+                        Text="Send Application"
+                        TextColor="White"
+                        WidthRequest="140" />
+
+                    <Button
+                        Padding="12,6"
+                        BackgroundColor="White"
+                        Command="{Binding GoBackCommand}"
+                        Text="Go Back"
+                        TextColor="#7C4DFF"
+                        WidthRequest="120" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+    </ScrollView>
+</ContentPage>

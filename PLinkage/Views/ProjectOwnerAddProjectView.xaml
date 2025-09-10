@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PLinkage.Views.ProjectOwnerAddProjectView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:viewmodels="clr-namespace:PLinkage.ViewModels"
+    Title="Create Project"
+    Shell.NavBarIsVisible="False">
+
+    <ScrollView Padding="50">
+        <VerticalStackLayout Spacing="20">
+            <Border
+                Padding="10"
+                Background="#7C4DFF"
+                Stroke="LightGray"
+                StrokeShape="RoundRectangle 5"
+                StrokeThickness="1">
+                <VerticalStackLayout Spacing="10">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        Text="Project Name"
+                        TextColor="White" />
+                    <Entry
+                        BackgroundColor="White"
+                        Placeholder="Enter project name"
+                        Text="{Binding ProjectName}"
+                        TextColor="Black" />
+
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        Text="Location"
+                        TextColor="White" />
+                    <Picker
+                        Title="Select Location"
+                        BackgroundColor="White"
+                        HeightRequest="70"
+                        ItemDisplayBinding="{Binding .}"
+                        ItemsSource="{Binding CebuLocations}"
+                        SelectedItem="{Binding ProjectLocationSelected}"
+                        TextColor="Black" />
+
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        Text="Project Description"
+                        TextColor="White" />
+                    <Editor
+                        BackgroundColor="White"
+                        HeightRequest="100"
+                        Placeholder="Enter project description"
+                        Text="{Binding ProjectDescription}"
+                        TextColor="Black" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+                <Border
+                    Grid.Column="0"
+                    Padding="10"
+                    Background="#FFFFFF"
+                    Stroke="#7C4DFF"
+                    StrokeShape="RoundRectangle 5"
+                    StrokeThickness="1">
+                    <Grid ColumnDefinitions="2*, 1.2*" ColumnSpacing="20">
+
+                        <VerticalStackLayout Grid.Column="0" Spacing="10">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                Text="Start Date" />
+                            <DatePicker
+                                BackgroundColor="White"
+                                Date="{Binding ProjectStartDate}"
+                                MinimumDate="{x:Static sys:DateTime.Today}" />
+
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                Text="End Date" />
+                            <DatePicker
+                                BackgroundColor="White"
+                                Date="{Binding ProjectEndDate}"
+                                MinimumDate="{x:Static sys:DateTime.Today}" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Padding="10,0,0,0"
+                            Spacing="10"
+                            VerticalOptions="Center">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                Text="Duration"
+                                TextColor="Black" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                Text="{Binding DurationSummary}"
+                                TextColor="Black" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <Border
+                    Grid.Column="1"
+                    Padding="10"
+                    Background="#F1F0FC"
+                    Stroke="LightGray"
+                    StrokeShape="RoundRectangle 5"
+                    StrokeThickness="0">
+                    <VerticalStackLayout Spacing="10">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="14"
+                            Text="Priority" />
+                        <Picker
+                            Title="Select Priority"
+                            BackgroundColor="White"
+                            ItemsSource="{Binding PriorityOptions}"
+                            SelectedItem="{Binding ProjectPrioritySelected}"
+                            TextColor="Black" />
+
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="14"
+                            Text="Status" />
+                        <Picker
+                            BackgroundColor="White"
+                            ItemsSource="{Binding StatusOptions}"
+                            SelectedItem="{Binding ProjectStatusSelected}"
+                            TextColor="Black" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+
+                <VerticalStackLayout Grid.Column="0" Spacing="20">
+                    <Border
+                        Padding="10"
+                        Background="#F1F0FC"
+                        Stroke="LightGray"
+                        StrokeShape="RoundRectangle 5"
+                        StrokeThickness="0">
+                        <VerticalStackLayout>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                Text="Resources Needed" />
+                            <Entry
+                                BackgroundColor="White"
+                                Keyboard="Numeric"
+                                Text="{Binding ProjectResourcesNeeded}" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border
+                        Padding="10"
+                        Background="#F1F0FC"
+                        HeightRequest="250"
+                        Stroke="LightGray"
+                        StrokeShape="RoundRectangle 5"
+                        StrokeThickness="0">
+                        <VerticalStackLayout>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                Text="Date Created" />
+                            <DatePicker
+                                BackgroundColor="White"
+                                Date="{Binding ProjectDateCreated}"
+                                IsEnabled="False" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                Text="Date Updated" />
+                            <DatePicker
+                                BackgroundColor="White"
+                                Date="{Binding ProjectDateUpdated}"
+                                IsEnabled="False" />
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
+                <Border
+                    Grid.Column="1"
+                    Padding="10"
+                    Background="#FFFFFF"
+                    Stroke="#7C4DFF"
+                    StrokeShape="RoundRectangle 5"
+                    StrokeThickness="1">
+                    <VerticalStackLayout Spacing="10">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="14"
+                            Text="Skill Set" />
+                        <Entry
+                            BackgroundColor="White"
+                            Placeholder="Type a skill..."
+                            Text="{Binding SelectedSkill}" />
+                        <Button
+                            BackgroundColor="#7C4DFF"
+                            Command="{Binding AddSkillCommand}"
+                            Text="Add Skill"
+                            TextColor="White" />
+
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="14"
+                            Text="Selected Skills:" />
+                        <CollectionView HeightRequest="150" ItemsSource="{Binding ProjectSkillsRequired}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Margin="2"
+                                        Padding="6,3"
+                                        Background="#F1F0FC"
+                                        Stroke="LightGray"
+                                        StrokeShape="RoundRectangle 10"
+                                        StrokeThickness="1">
+                                        <HorizontalStackLayout Spacing="8">
+                                            <Label
+                                                LineBreakMode="WordWrap"
+                                                MaxLines="1"
+                                                Text="{Binding .}"
+                                                TextColor="Black" />
+                                            <Button
+                                                BackgroundColor="Transparent"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.RemoveSkillCommand}"
+                                                CommandParameter="{Binding .}"
+                                                FontSize="12"
+                                                Text="❌" />
+                                        </HorizontalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+            <Button
+                Padding="12"
+                BackgroundColor="#4CAF50"
+                Command="{Binding SubmitCommand}"
+                CornerRadius="6"
+                HeightRequest="50"
+                HorizontalOptions="Center"
+                Text="Create Project"
+                TextColor="White"
+                WidthRequest="200" />
+            <Label
+                Margin="0,0,0,0"
+                FontAttributes="Bold"
+                FontSize="14"
+                HorizontalOptions="Center"
+                Text="{Binding ErrorMessage}"
+                TextColor="Red" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
