@@ -1,6 +1,6 @@
 # Project Linkage App (.NET MAUI)
 
-A **.NET MAUI cross-platform application** for Android and Windows that connects **project owners** with **skill providers**.  
+A **.NET MAUI cross-platform application** for Windows that connects **project owners** with **skill providers**.  
 The app features project management, user profiles, messaging, and a contract workflow to streamline collaboration.
 
 ---
